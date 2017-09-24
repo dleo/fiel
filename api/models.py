@@ -1,6 +1,9 @@
 import time
 from django.db import models
 from datetime import date
+from datetime import datetime
+from django.utils import dateparse
+
 
 class Birth(models.Model):
     date_event = models.DateTimeField()
@@ -15,14 +18,14 @@ class Animal(models.Model):
     birth_date = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER)
 
-
     def age(self):
         today = date.today()
-        time_from_birth_date = abs(today - self.birth_date)
+        time_from_birth_date = abs(today - dateparse.parse_date(self.birth_date))
         return time_from_birth_date.days
 
     class Meta:
         abstract = True
+
 
 class Rabbit(Animal):
     RACES = (
