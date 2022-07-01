@@ -7,6 +7,7 @@ from django.utils import dateparse
 
 class Birth(models.Model):
     date_event = models.DateTimeField()
+    number = models.IntegerField()
 
 
 class Animal(models.Model):
@@ -33,4 +34,13 @@ class Rabbit(Animal):
         ('GIANT FLANDES', 1)
     )
     race = models.IntegerField(choices=RACES)
+    cage = models.IntegerField()
+    father = models.ForeignKey(
+        'Rabbit',
+        on_delete=models.CASCADE
+    )
+    mother = models.ForeignKey(
+        'Rabbit',
+        on_delete=models.CASCADE,
+    )
 
